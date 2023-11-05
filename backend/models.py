@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Note(models.Model):
-    body: models.TextField(null=True, blank=True)
+    body = models.TextField(null=True, blank=True)
     #model for update fields
     updated = models.DateTimeField(auto_now=True)       #gets timestamp everytime Note model is saved
     created = models.DateTimeField(auto_now_add=True)   #gets timestamp only on creation of model 
