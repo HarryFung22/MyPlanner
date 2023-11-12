@@ -1,8 +1,12 @@
+from django.http import response
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.serializers import Serializer
 from .models import Note
 from .serializers import NoteSerializer
+from backend import serializers
+from .utils import updateNote, getNoteDetail, deleteNote, getNotesList, createNote
 
 # specifies endpoints
 @api_view(['GET'])
@@ -42,17 +46,18 @@ def getRoutes(request):
     #safe allows for return more than just a dictionary
     return Response(routes)
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def getNotes(request):
-    #returns list of all notes from db, need to serialize into json form
-    notes = Note.objects.all()
-    serializer = NoteSerializer(notes, many=True)    #returned as an object
-    return Response(serializer.data)
-
-#pass primary key/id to return specific req
-@api_view(['GET'])
+    if request.method == 'GET':
+        return getNotesList(request)
+    if request.method == 'POST':
+        return createNote(request)
+    
+@api_view(['GET', 'PUT', 'DELETE'])
 def getNote(request, id):
-    #returns list of all notes from db, need to serialize into json form
-    notes = Note.objects.get(id=id)
-    serializer = NoteSerializer(notes, many=False)    #returned as an object, serialize single object
-    return Response(serializer.data)
+    if request.method == 'GET':
+        return getNoteDetail(request, id)
+    if request.method == 'PUT':
+        return updateNote(request, id)
+    if request.method == 'DELETE':
+        return deleteNote(request, id)
