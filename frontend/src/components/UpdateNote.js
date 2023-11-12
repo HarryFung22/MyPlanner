@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {
@@ -7,7 +7,6 @@ import {
 
 const UpdateNote = () => {
     const {id} = useParams()
-    console.log(id)
     const navigate = useNavigate()
     const [inputText, setInputText] = useState('');
     const [savedText, setSavedText] = useState('');
@@ -16,11 +15,21 @@ const UpdateNote = () => {
         setInputText(e.target.value);
     };
 
+    //fetch data on render
+    const fetchData = async () => {
+        const response = await fetch(`http://127.0.0.1:8000/api/notes/${id}/`)
+        const data = await response.json()
+        setInputText(data.body)
+    }
+    useEffect(() => {
+        fetchData()
+    }, [])
+
     const handleSaveClick = async () => {
         try{
-            fetch(`http://127.0.0.1:8000/api/notes/${id}`, {
+            fetch(`http://127.0.0.1:8000/api/notes/${id}/`, {
                 method: "PUT",
-                'headers': {
+                headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(inputText)

@@ -18,7 +18,7 @@ const CreateNote = () => {
         try{
             fetch('http://127.0.0.1:8000/api/notes/', {
                 method: "POST",
-                'headers': {
+                headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(inputText)

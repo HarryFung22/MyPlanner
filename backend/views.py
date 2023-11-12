@@ -49,15 +49,19 @@ def getRoutes(request):
 @api_view(['GET', 'POST'])
 def getNotes(request):
     if request.method == 'GET':
-        return getNotesList(request)
+        return getNotesList(request) 
+    
     if request.method == 'POST':
+
         return createNote(request)
     
 @api_view(['GET', 'PUT', 'DELETE'])
 def getNote(request, id):
     if request.method == 'GET':
         return getNoteDetail(request, id)
+    
     if request.method == 'PUT':
         return updateNote(request, id)
+    
     if request.method == 'DELETE':
         return deleteNote(request, id)
