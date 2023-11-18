@@ -32,7 +32,7 @@ const UpdateNote = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(inputText)
+                body: JSON.stringify({body: inputText})
             })
             setInputText('')
             navigate('/notes')
@@ -45,7 +45,7 @@ const UpdateNote = () => {
         <div className="flex items-center justify-center bg-black/30 h-screen mt-30%">
             <div className="bg-yellow-200 p-4 rounded-md shadow-md w-1/3">
                 <div className="p-4">
-                    <h2 className="text-xl font-bold mb-2 text-center">Create/Edit</h2>
+                    <h2 className="text-xl font-bold mb-2 text-center">Edit</h2>
                     <label htmlFor="textInput" className="block text-sm font-medium text-gray-700">
                         Body:
                     </label>
