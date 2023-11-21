@@ -1,8 +1,13 @@
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+
 from .models import Note
 from .serializers import NoteSerializer
 
+@permission_classes([IsAuthenticated])
 def getNotesList(request):
+    user = request.user
     #returns list of all notes from db, need to serialize into json form
     notes = Note.objects.all().order_by('-updated')
     serializer = NoteSerializer(notes, many=True)    #returned as an object

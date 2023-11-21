@@ -1,12 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Note(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True) #deletes any object related to user on delete
     body = models.TextField(null=True, blank=True)
-    #model for update fields
-    updated = models.DateTimeField(auto_now=True)       #gets timestamp everytime Note model is saved
-    created = models.DateTimeField(auto_now_add=True)   #gets timestamp only on creation of model 
+    updated = models.DateTimeField(auto_now=True)       
+    created = models.DateTimeField(auto_now_add=True)   
 
     def __str__(self):
-        #str method to fetch first 50 chars in instance of long msg
         return self.body[0:50]
+

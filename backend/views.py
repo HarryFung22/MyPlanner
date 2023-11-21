@@ -7,6 +7,8 @@ from .models import Note
 from .serializers import NoteSerializer
 from backend import serializers
 from .utils import updateNote, getNoteDetail, deleteNote, getNotesList, createNote
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 # specifies endpoints
 @api_view(['GET'])
@@ -65,3 +67,16 @@ def getNote(request, id):
     
     if request.method == 'DELETE':
         return deleteNote(request, id)
+    
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+
+        # encrypt username into token
+        token['username'] = user.username
+
+        return token
+
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
