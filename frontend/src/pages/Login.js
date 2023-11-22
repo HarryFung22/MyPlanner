@@ -1,8 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { login } from '../Store/AuthSlice';
 
 const Login = () => {
-    const [username, setUsername] = useState('')
+    const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
+
+    const dispatch = useDispatch()
+    const user = useSelector(state => state.user)
 
     const handleSubmit = async (e) => {
         const response = await fetch(`http://127.0.0.1:8000/api/token/`, {
@@ -10,10 +15,14 @@ const Login = () => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({username: username, password: password}),
+            body: JSON.stringify({username: userName, password: password}),
         })
-        const data = await response.json()
-        console.log(data)
+        
+        if(response.ok){
+            const data = await response.json()
+            dispatch(login({username: userName, authToken: data.access, refreshToken: data.refresh}))
+            localStorage.setItem('user', JSON.stringify({username: userName, authToken: data.authToken, refreshToken: data.refreshToken}))
+        }
     }
 
     return (
@@ -25,8 +34,8 @@ const Login = () => {
                     placeholder="Username"
                     className="w-full p-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
                     required
-                    value={username}
-                    onChange={e => setUsername(e.target.value)}
+                    value={userName}
+                    onChange={e => setUserName(e.target.value)}
                 />
                 <input
                     type="password"
