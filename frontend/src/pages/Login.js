@@ -21,7 +21,7 @@ const Login = () => {
         if(response.ok){
             const data = await response.json()
             dispatch(login({username: userName, authToken: data.access, refreshToken: data.refresh}))
-            localStorage.setItem('user', JSON.stringify({username: userName, authToken: data.authToken, refreshToken: data.refreshToken}))
+            localStorage.setItem('user', JSON.stringify({username: userName, authToken: data.access, refreshToken: data.refresh}))
         }
     }
 
