@@ -1,14 +1,16 @@
 import React, {useState} from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {
     faPenToSquare
 } from '@fortawesome/free-solid-svg-icons';
 
 const CreateNote = () => {
+    const user = useSelector(state => state.user)
+
     const navigate = useNavigate()
     const [inputText, setInputText] = useState('');
-    const [savedText, setSavedText] = useState('');
 
     const handleInputChange = (e) => {
         setInputText(e.target.value);
@@ -16,15 +18,18 @@ const CreateNote = () => {
 
     const handleSaveClick = async () => {
         try{
-            fetch('http://127.0.0.1:8000/api/notes/', {
+            const response = await fetch('http://127.0.0.1:8000/api/notes/', {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(inputText)
+                body: JSON.stringify({body: inputText, user: user.username})
             })
-            setInputText('')
-            navigate('/notes')
+
+            if(response.ok){
+                setInputText('')
+                navigate('/notes')
+            }
         }catch(error){
             console.log(error)
         }

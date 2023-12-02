@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../Store/AuthSlice';
 
@@ -8,6 +9,7 @@ const Login = () => {
 
     const dispatch = useDispatch()
     const user = useSelector(state => state.user)
+    const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
         const response = await fetch(`http://127.0.0.1:8000/api/token/`, {
@@ -22,6 +24,7 @@ const Login = () => {
             const data = await response.json()
             dispatch(login({username: userName, authToken: data.access, refreshToken: data.refresh}))
             localStorage.setItem('user', JSON.stringify({username: userName, authToken: data.access, refreshToken: data.refresh}))
+            navigate('/notes')
         }
     }
 
