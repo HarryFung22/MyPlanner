@@ -1,8 +1,11 @@
 import React from 'react'
 import {useEffect, useState} from 'react'
+import { useSelector, useDispatch } from 'react-redux';
 import Note from './Note'
 
 const Home = () => {
+    const user = useSelector(state => state.user)
+
     const [data, setData] = useState([])
     const [rerender, setRerender] = useState(false)
     useEffect(() => {
@@ -11,7 +14,7 @@ const Home = () => {
     }, [rerender])
 
     const fetchData = async () => {
-        const response = await fetch('http://127.0.0.1:8000/api/notes/')
+        const response = await fetch(`http://127.0.0.1:8000/api/notes/`)
         const data = await response.json()
         setData(data)
         console.log(data)

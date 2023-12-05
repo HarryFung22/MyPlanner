@@ -1,18 +1,21 @@
 import React, {useState} from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { useSelector, useDispatch } from 'react-redux';
 import {
     faPenToSquare,
     faTrash
 } from '@fortawesome/free-solid-svg-icons';
 
 const Note = ({ note, setRerender }) => {
+  const user = useSelector(state => state.user)
   const handleDelete = async () => {
     fetch(`http://127.0.0.1:8000/api/notes/${note.id}/`, {
       method: 'DELETE',
-      'headers': {
+      headers: {
           'Content-Type': 'application/json'
-      }
+      },
+      body: JSON.stringify({user: user.username}),
     })
     setRerender(true)
   }
