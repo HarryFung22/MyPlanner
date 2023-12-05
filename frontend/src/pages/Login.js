@@ -8,7 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState('')
 
     const dispatch = useDispatch()
-    const user = useSelector(state => state.user)
+
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {

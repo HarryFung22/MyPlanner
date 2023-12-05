@@ -49,13 +49,13 @@ def getRoutes(request):
     return Response(routes)
 
 @api_view(['GET', 'POST'])
-def getNotes(request):
+def getNotes(request, user):
     if request.method == 'GET':
-        return getNotesList(request) 
+        return getNotesList(request, user) 
     
     if request.method == 'POST':
 
-        return createNote(request)
+        return createNote(request, user)
     
 @api_view(['GET', 'PUT', 'DELETE'])
 def getNote(request, id):

@@ -14,7 +14,7 @@ const Home = () => {
     }, [rerender])
 
     const fetchData = async () => {
-        const response = await fetch(`http://127.0.0.1:8000/api/notes/`)
+        const response = await fetch(`http://127.0.0.1:8000/api/notes/${user.username}/`)
         const data = await response.json()
         setData(data)
         console.log(data)

@@ -8,7 +8,7 @@ from rest_framework_simplejwt.views import (
 #path method specifies the route we go to
 urlpatterns = [
     path('', views.getRoutes, name="routes"),
-    path('notes/', views.getNotes, name="notes"),
+    path('notes/<str:user>/', views.getNotes, name="notes"),
     path('notes/<str:id>/', views.getNote, name="note"),
 
     path('token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
