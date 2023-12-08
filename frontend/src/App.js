@@ -10,13 +10,13 @@ import Login from './pages/Login';
 function App() {
   const user = useSelector(state => state.user)
   const isUser = user.username === null || user.authToken === null || user.refreshToken === null
-  console.log(isUser)
+  
   return (
     <div>
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path='/' element={<Navigate to="/login"/>} />
+          <Route path='/' element={isUser ? <Navigate to="/login"/> : <Navigate to="/notes" />} />
           <Route path='/login' element={<Login/>} />
           <Route path='/notes' element={<Home/>}/>
           <Route path='/notes/create' element={<CreateNote/>}/>
