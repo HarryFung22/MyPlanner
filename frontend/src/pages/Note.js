@@ -25,7 +25,7 @@ const Note = ({ note, setRerender }) => {
       <div className="flex flex-col justify-center items-center h-full">
         <div className="mb-4 text-center">{note.body}</div>
         <div className="absolute top-2 right-2">
-          <FontAwesomeIcon icon={faPenToSquare} onClick={() => navigate(`/notes/update/${note.id}`)} className='mr-2'/>
+          <FontAwesomeIcon icon={faPenToSquare} onClick={() => navigate(`/update/${note.id}`)} className='mr-2'/>
           <FontAwesomeIcon icon={faTrash} onClick={() => handleDelete()}/>
         </div>
       </div>

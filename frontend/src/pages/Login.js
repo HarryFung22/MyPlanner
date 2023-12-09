@@ -24,7 +24,7 @@ const Login = () => {
             const data = await response.json()
             dispatch(login({username: userName, authToken: data.access, refreshToken: data.refresh}))
             localStorage.setItem('user', JSON.stringify({username: userName, authToken: data.access, refreshToken: data.refresh}))
-            navigate('/notes')
+            navigate('/')
         }
     }
 

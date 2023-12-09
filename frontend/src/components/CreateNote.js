@@ -28,7 +28,7 @@ const CreateNote = () => {
 
             if(response.ok){
                 setInputText('')
-                navigate('/notes')
+                navigate('/')
             }
         }catch(error){
             console.log(error)
