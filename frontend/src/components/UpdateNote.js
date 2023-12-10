@@ -8,7 +8,7 @@ import {
 
 const UpdateNote = () => {
     const {id} = useParams()
-    const user = useSelector(state => state.user)
+    const user = JSON.parse(localStorage.getItem('user'))
     const navigate = useNavigate()
     const [inputText, setInputText] = useState('');
     const [savedText, setSavedText] = useState('');

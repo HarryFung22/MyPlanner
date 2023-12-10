@@ -8,7 +8,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const Note = ({ note, setRerender }) => {
-  const user = useSelector(state => state.user)
+  const user = JSON.parse(localStorage.getItem('user'))
   const handleDelete = async () => {
     fetch(`http://127.0.0.1:8000/api/notes/${note.id}/`, {
       method: 'DELETE',

@@ -36,7 +36,7 @@ def updateNote(request, id):
     return Response("Note not found", status=404)
 
 def deleteNote(request, id):
-    note = Note.objects.filter(user=request.data.get('user'), id=id).first()
+    note = Note.objects.filter(id=id).first()
     if note:
         note.delete()
         return Response('Note was deleted')

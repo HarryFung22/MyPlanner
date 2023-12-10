@@ -46,10 +46,11 @@ const Navbar = () => {
     };
 
     const handleSignOut = () => {
-        dispatch(logout())
-        localStorage.clear()
+        dispatch(logout());
+        localStorage.clear();
         handleClose();
-        navigate('/login')
+        navigate('/login');
+        window.location.reload();
     };
 
     return (

@@ -7,7 +7,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 const CreateNote = () => {
-    const user = useSelector(state => state.user)
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const navigate = useNavigate()
     const [inputText, setInputText] = useState('');

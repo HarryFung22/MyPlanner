@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Note from './Note'
 
 const Home = () => {
-    const user = useSelector(state => state.user)
+    const user = JSON.parse(localStorage.getItem('user'))
 
     const [data, setData] = useState([])
     const [rerender, setRerender] = useState(false)
