@@ -17,7 +17,6 @@ const Home = () => {
         const response = await fetch(`http://127.0.0.1:8000/api/notes/${user.username}/`)
         const data = await response.json()
         setData(data)
-        console.log(data)
     }
     return (
         <div className='flex items-center justify-center bg-black/30 h-screen w-full'>

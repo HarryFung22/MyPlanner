@@ -58,15 +58,15 @@ def getNotes(request, user):
         return createNote(request, user)
     
 @api_view(['GET', 'PUT', 'DELETE'])
-def getNote(request, id):
+def getNote(request, user, id):
     if request.method == 'GET':
-        return getNoteDetail(request, id)
+        return getNoteDetail(request, user, id)
     
     if request.method == 'PUT':
-        return updateNote(request, id)
+        return updateNote(request, user, id)
     
     if request.method == 'DELETE':
-        return deleteNote(request, id)
+        return deleteNote(request, user, id)
     
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

@@ -10,13 +10,10 @@ def getNotesList(request, user):
     serializer = NoteSerializer(notes, many=True)
     return Response(serializer.data)
 
-def getNoteDetail(request, id):
-    user = request.user
-    note = Note.objects.filter(user=user, id=id).first()
-    if note:
-        serializer = NoteSerializer(note)
-        return Response(serializer.data)
-    return Response("Note not found", status=404)
+def getNoteDetail(request, user, id):
+    note = Note.objects.get(user=user, id=id)
+    serializer = NoteSerializer(note)
+    return Response(serializer.data)
 
 def createNote(request, user):
     print(user)
@@ -25,19 +22,19 @@ def createNote(request, user):
     serializer = NoteSerializer(note)
     return Response(serializer.data, status=201)
 
-def updateNote(request, id):
-    note = Note.objects.filter(user=request.data.get('user'), id=id).first()
-    if note:
-        serializer = NoteSerializer(instance=note, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=400)
-    return Response("Note not found", status=404)
+def updateNote(request, user, id):
+    #return obj, already in json
+    data = request.data
+    note = Note.objects.get(user=user, id=id)
+    #get instance of the note that needs to be updated with new info
+    serializer = NoteSerializer(instance=note, data=data)
 
-def deleteNote(request, id):
-    note = Note.objects.filter(id=id).first()
-    if note:
-        note.delete()
-        return Response('Note was deleted')
-    return Response("Note not found", status=404)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
+
+
+def deleteNote(request, user, id):
+    note = Note.objects.get(user=user, id=id)
+    note.delete()
+    return Response('Note was deleted')
