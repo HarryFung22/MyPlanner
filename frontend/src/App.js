@@ -6,6 +6,7 @@ import CreateNote from './components/CreateNote';
 import UpdateNote from './components/UpdateNote';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
+import Summarize from './pages/Summarize';
 
 function App() {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
@@ -29,6 +30,7 @@ function App() {
                     <Route index element={<Home />} />
                     <Route path='create' element={<CreateNote />} />
                     <Route path='update/:id' element={<UpdateNote />} />
+                    <Route path='summarize' element={<Summarize />} />
                   </Routes>
                 </>
               ) : (
