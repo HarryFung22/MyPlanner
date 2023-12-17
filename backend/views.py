@@ -7,15 +7,10 @@ from .models import Note
 from .serializers import NoteSerializer
 from backend import serializers
 from .utils import updateNote, getNoteDetail, deleteNote, getNotesList, createNote
-from .Cohere.utils import generate, summarize
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 # specifies endpoints
-@api_view(['GET', 'POST'])
-def getSummarize(request):
-    if request.method == 'POST':
-        return summarize(request)
 
 @api_view(['GET', 'POST'])
 def getNotes(request, user):
