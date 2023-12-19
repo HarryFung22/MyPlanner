@@ -10,7 +10,7 @@ import {
 const Note = ({ note, setRerender }) => {
   const user = JSON.parse(localStorage.getItem('user'))
   const handleDelete = async () => {
-    fetch(`http://127.0.0.1:8000/api/notes/${user.username}/${note.id}/`, {
+    fetch(`http://localhost:8000/api/notes/${user.username}/${note.id}/`, {
       method: 'DELETE',
       headers: {
           'Content-Type': 'application/json'

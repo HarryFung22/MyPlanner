@@ -28,7 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['localhost']
 
-SITE_ID = 1
+# SITE_ID = 1
+
+LOGIN_REDIRECT_URL = 'localhost:3000'
+LOGOUT_REDIRECT_URL = 'localhost:3000/login'
 
 # Application definition
 
@@ -168,13 +171,12 @@ AUTHENTICATION_BACKENDS = [
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
-        # For each OAuth based provider, either add a ``SocialApp``
-        # (``socialaccount`` app) containing the required client
-        # credentials, or list them here:
-        'APP': {
-            'client_id': '123',
-            'secret': '456',
-            'key': ''
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
         }
     }
 }
