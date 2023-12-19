@@ -30,7 +30,8 @@ const Login = () => {
     }
 
     const handleCallbackResponse = (response) => {
-        console.log(response.credential)
+        const [header, payload, signature] = response.credential.split('.')
+        console.log(JSON.parse(atob(payload)))
     }
 
     useEffect(() => {
