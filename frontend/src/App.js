@@ -10,7 +10,7 @@ import Summarize from './pages/Summarize';
 import Generate from './pages/Generate';
 
 function App() {
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
+  const [user, setUser] = useState((localStorage.getItem('user')));
   const isAuthenticated = user !== null;
   
   return (

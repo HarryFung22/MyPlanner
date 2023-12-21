@@ -23,7 +23,7 @@ const Login = () => {
         if(response.ok){
             const data = await response.json()
             dispatch(login({username: userName, authToken: data.access, refreshToken: data.refresh}))
-            localStorage.setItem('user', JSON.stringify({username: userName, authToken: data.access, refreshToken: data.refresh}))
+            
             navigate('/');
             window.location.reload();
         }
@@ -31,7 +31,15 @@ const Login = () => {
 
     const handleCallbackResponse = (response) => {
         const [header, payload, signature] = response.credential.split('.')
-        console.log(JSON.parse(atob(payload)))
+
+        //set local storage
+        // let temp = (JSON.parse(atob(payload)))
+        // console.log(temp.email)
+        localStorage.setItem('user', atob(payload))
+        localStorage.setItem('token', response.credential)
+
+        navigate('/');
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -51,22 +59,6 @@ const Login = () => {
         <div className="flex items-center justify-center bg-black bg-opacity-30 h-screen mt-30%">
             <div className="bg-yellow-200 p-4 rounded-md shadow-md w-1/3">
                 <h2 className="text-xl font-bold mb-2 text-center">Login</h2>
-                <input
-                    type="text"
-                    placeholder="Username"
-                    className="w-full p-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                    required
-                    value={userName}
-                    onChange={e => setUserName(e.target.value)}
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    className="w-full p-2 mb-6 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
-                    required
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                />
                 <div id="signInDiv"></div>
             </div>
         </div>

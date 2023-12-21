@@ -5,6 +5,7 @@ import Note from './Note'
 
 const Home = () => {
     const user = JSON.parse(localStorage.getItem('user'))
+    const token = localStorage.getItem('token')
 
     const [data, setData] = useState([])
     const [rerender, setRerender] = useState(false)
@@ -13,8 +14,16 @@ const Home = () => {
         setRerender(false)
     }, [rerender])
 
+    console.log(token)
+
     const fetchData = async () => {
-        const response = await fetch(`http://localhost:8000/api/notes/${user.username}/`)
+        const response = await fetch(`http://localhost:8000/api/notes/${user.email}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        })
         const data = await response.json()
         setData(data)
     }
