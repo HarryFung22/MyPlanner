@@ -7,7 +7,6 @@ import UpdateNote from './components/UpdateNote';
 import Navbar from './components/Navbar';
 import Login from './pages/Login';
 import Summarize from './pages/Summarize';
-import Generate from './pages/Generate';
 
 function App() {
   const [user, setUser] = useState((localStorage.getItem('user')));
@@ -32,7 +31,6 @@ function App() {
                     <Route path='create' element={<CreateNote />} />
                     <Route path='update/:id' element={<UpdateNote />} />
                     <Route path='summarize' element={<Summarize />} />
-                    <Route path='generate' element={<Generate />} />
                   </Routes>
                 </>
               ) : (

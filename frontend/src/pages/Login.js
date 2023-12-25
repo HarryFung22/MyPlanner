@@ -12,13 +12,11 @@ const Login = () => {
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
-        const token = localStorage.getItem('token')
         
         const response = await fetch(`http://localhost:8000/api/token/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
             },
             body: JSON.stringify({username: userName, password: password}),
         })
