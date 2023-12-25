@@ -19,7 +19,7 @@ const UpdateNote = () => {
 
     //fetch data on render
     const fetchData = async () => {
-        const response = await fetch(`http://localhost:8000/api/notes/${user.username}/${id}/`)
+        const response = await fetch(`http://127.0.0.1:8000/api/notes/${user.username}/${id}/`)
         const data = await response.json()
         setInputText(data.body)
     }
@@ -29,7 +29,7 @@ const UpdateNote = () => {
 
     const handleSaveClick = async () => {
         try{
-            const response = await fetch(`http://localhost:8000/api/notes/${user.username}/${id}/`, {
+            const response = await fetch(`http://127.0.0.1:8000/api/notes/${user.username}/${id}/`, {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json'

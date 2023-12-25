@@ -55,15 +55,15 @@ const Navbar = () => {
 
     return (
         <nav className="bg-gray-800 p-4 text-white flex justify-between items-center">
-        <div className="text-xl font-bold" onClick={() => navigate('/')}>MyPlanner</div>
+        <div className="text-xl font-bold hover:cursor-pointer" onClick={() => navigate('/')}>MyPlanner</div>
         <div className="flex space-x-4">
             <div className="flex items-center gap-4">
                 <div className="text-sm cursor-pointer" onClick={() => navigate('/summarize')}>Summarize</div>
-                <div className="text-sm cursor-pointer">Generate</div>
+                <div className="text-sm cursor-pointer" onClick={() => navigate('/generate')}>Generate</div>
             </div>
             <div className="flex items-center gap-4">
-                <FontAwesomeIcon icon={faPlus} onClick={() => navigate('/create')}/>
-                <FontAwesomeIcon icon={faUser} onClick={() => setIsPopupOpen(!isPopupOpen)}/>
+                <FontAwesomeIcon icon={faPlus} className='hover:cursor-pointer' onClick={() => navigate('/create')}/>
+                <FontAwesomeIcon icon={faUser} className='hover:cursor-pointer' onClick={() => setIsPopupOpen(!isPopupOpen)}/>
             </div>
         </div>
         {isPopupOpen && (

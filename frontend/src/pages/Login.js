@@ -12,11 +12,10 @@ const Login = () => {
     const navigate = useNavigate()
 
     const handleSubmit = async (e) => {
-        
-        const response = await fetch(`http://localhost:8000/api/token/`, {
+        const response = await fetch(`http://127.0.0.1:8000/api/token/`, {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({username: userName, password: password}),
         })
@@ -24,43 +23,40 @@ const Login = () => {
         if(response.ok){
             const data = await response.json()
             dispatch(login({username: userName, authToken: data.access, refreshToken: data.refresh}))
-            
+            localStorage.setItem('user', JSON.stringify({username: userName, authToken: data.access, refreshToken: data.refresh}))
             navigate('/');
             window.location.reload();
         }
     }
 
-    const handleCallbackResponse = (response) => {
-        const [header, payload, signature] = response.credential.split('.')
-        console.log(header)
-        //set local storage
-        // let temp = (JSON.parse(atob(payload)))
-        // console.log(temp.email)
-        localStorage.setItem('user', atob(payload))
-        localStorage.setItem('token', response.credential)
-
-        navigate('/');
-        window.location.reload();
-    }
-
-    useEffect(() => {
-        /* global google */
-        google.accounts.id.initialize({
-            client_id: "587011555651-v0ftah0g405q73ctbmifkj76h9eafk7i.apps.googleusercontent.com",
-            callback: handleCallbackResponse
-        });
-
-        google.accounts.id.renderButton(
-            document.getElementById("signInDiv"),
-            {theme: "outline", size: "large"}
-        );
-    }, []);
-
     return (
         <div className="flex items-center justify-center bg-black bg-opacity-30 h-screen mt-30%">
             <div className="bg-yellow-200 p-4 rounded-md shadow-md w-1/3">
                 <h2 className="text-xl font-bold mb-2 text-center">Login</h2>
-                <div id="signInDiv"></div>
+                <input
+                    type="text"
+                    placeholder="Username"
+                    className="w-full p-2 mb-4 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                    required
+                    value={userName}
+                    onChange={e => setUserName(e.target.value)}
+                />
+                <input
+                    type="password"
+                    placeholder="Password"
+                    className="w-full p-2 mb-6 rounded-md border border-gray-300 focus:outline-none focus:border-blue-500"
+                    required
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <button
+                    className="w-full bg-yellow-500 py-2 rounded-md text-white font-semibold hover:bg-yellow-600 hover:text-black border border-yellow-600 transition duration-300"
+                    onClick={() => {
+                        handleSubmit()
+                    }}
+                >
+                    Login
+                </button>
             </div>
         </div>
     );

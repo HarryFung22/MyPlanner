@@ -18,7 +18,7 @@ const CreateNote = () => {
 
     const handleSaveClick = async () => {
         try{
-            const response = await fetch(`http://localhost:8000/api/notes/${user.username}/`, {
+            const response = await fetch(`http://127.0.0.1:8000/api/notes/${user.username}/`, {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
