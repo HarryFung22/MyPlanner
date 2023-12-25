@@ -34,7 +34,7 @@ const Login = () => {
 
     const handleCallbackResponse = (response) => {
         const [header, payload, signature] = response.credential.split('.')
-
+        console.log(header)
         //set local storage
         // let temp = (JSON.parse(atob(payload)))
         // console.log(temp.email)
