@@ -13,7 +13,8 @@ const Note = ({ note, setRerender }) => {
     fetch(`http://localhost:8000/api/notes/${user.username}/${note.id}/`, {
       method: 'DELETE',
       headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.authToken}`
       },
     })
     setRerender(true)

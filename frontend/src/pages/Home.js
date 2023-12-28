@@ -14,7 +14,13 @@ const Home = () => {
     }, [rerender])
 
     const fetchData = async () => {
-        const response = await fetch(`http://localhost:8000/api/notes/${user.username}/`)
+        const response = await fetch(`http://localhost:8000/api/notes/${user.username}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.authToken}`
+            },
+        })
         const data = await response.json()
         setData(data)
     }

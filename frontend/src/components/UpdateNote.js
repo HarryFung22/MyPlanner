@@ -19,7 +19,13 @@ const UpdateNote = () => {
 
     //fetch data on render
     const fetchData = async () => {
-        const response = await fetch(`http://localhost:8000/api/notes/${user.username}/${id}/`)
+        const response = await fetch(`http://localhost:8000/api/notes/${user.username}/${id}/`, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.authToken}`
+            },
+        })
         const data = await response.json()
         setInputText(data.body)
     }
@@ -32,7 +38,8 @@ const UpdateNote = () => {
             const response = await fetch(`http://localhost:8000/api/notes/${user.username}/${id}/`, {
                 method: "PUT",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.authToken}`
                 },
                 body: JSON.stringify({body: inputText, user: user.username})
             })

@@ -1,7 +1,9 @@
 from django.http import response
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.serializers import Serializer
 from .models import Note
 from .serializers import NoteSerializer
@@ -13,6 +15,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 # specifies endpoints
 
 @api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
 def getNotes(request, user):
     if request.method == 'GET':
         return getNotesList(request, user) 
@@ -22,6 +25,7 @@ def getNotes(request, user):
         return createNote(request, user)
     
 @api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
 def getNote(request, user, id):
     if request.method == 'GET':
         return getNoteDetail(request, user, id)

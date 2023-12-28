@@ -21,7 +21,8 @@ const CreateNote = () => {
             const response = await fetch(`http://localhost:8000/api/notes/${user.username}/`, {
                 method: "POST",
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.authToken}`
                 },
                 body: JSON.stringify({body: inputText})
             })
