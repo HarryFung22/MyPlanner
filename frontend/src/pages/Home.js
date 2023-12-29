@@ -2,16 +2,33 @@ import React from 'react'
 import {useEffect, useState} from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import Note from './Note'
+import { refreshAccessToken } from '../utils/authService';
 
 const Home = () => {
     const user = JSON.parse(localStorage.getItem('user'))
 
     const [data, setData] = useState([])
     const [rerender, setRerender] = useState(false)
+    const [refresh, setRefresh] = useState(user.refreshToken)
+
     useEffect(() => {
         fetchData()
         setRerender(false)
     }, [rerender])
+
+    useEffect(() => {
+        const intervalId = setInterval(async () => {
+            try {
+                const newAccessToken = await refreshAccessToken(refresh);
+                setRefresh(newAccessToken.refresh)
+                localStorage.setItem('user', JSON.stringify({...user, authToken: newAccessToken.access, refreshToken: newAccessToken.refresh}))
+            } catch (error) {
+                console.error('Token refresh failed:', error);
+            }
+        }, 60000); 
+
+        return () => clearInterval(intervalId);
+    }, [refresh])
 
     const fetchData = async () => {
         const response = await fetch(`http://localhost:8000/api/notes/${user.username}/`, {
