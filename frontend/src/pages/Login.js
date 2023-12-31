@@ -28,7 +28,7 @@ const Login = () => {
             window.location.reload();
         }
     }
-
+    
     return (
         <div className="flex items-center justify-center bg-black bg-opacity-30 h-screen mt-30%">
             <div className="bg-yellow-200 p-4 rounded-md shadow-md w-1/3">

@@ -11,8 +11,17 @@ const persistConfig = {
 
 const persistedReducer = persistReducer(persistConfig, AuthSlice);
 
+const ignoreNonSerializableMiddleware = (store) => (next) => (action) => {
+    if (action.type === 'persist/PERSIST') {
+        return next(action);
+    }
+    return next(action);
+};
+
+
 export const Store = configureStore({
-    reducer: persistedReducer
+    reducer: persistedReducer,
+    middleware: [ignoreNonSerializableMiddleware],
 })
 
 export const persistor = persistStore(Store)
