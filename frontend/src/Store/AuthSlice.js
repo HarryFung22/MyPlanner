@@ -11,17 +11,18 @@ const userSlice = createSlice({
     initialState,
     reducers: {
         login: (state, action) => {
-            state.username = action.payload.username
-            state.authToken = action.payload.authToken
-            state.refreshToken = action.payload.refreshToken
+            const { username, authToken, refreshToken } = action.payload;
+            return {
+                ...state,
+                username,
+                authToken,
+                refreshToken,
+            };
         },
-        logout: (state) => {
-            state.username = null
-            state.authToken = null
-            state.refreshToken = null
-        }
-    }
-})
+        logout: () => initialState, 
+    },
+});
+
 
 export const {login, logout} = userSlice.actions
 

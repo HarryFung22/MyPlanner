@@ -25,7 +25,7 @@ const Home = () => {
             } catch (error) {
                 console.error('Token refresh failed:', error);
             }
-        }, 60000); 
+        }, 600000); 
 
         return () => clearInterval(intervalId);
     }, [refresh])
